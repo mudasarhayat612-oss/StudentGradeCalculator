@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Grade Calculator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+    color: #1f2937;
+    padding: 30px 15px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    padding: 35px 25px;
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0 0 10px;
+    font-size: 32px;
+}
+
+.header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 15px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.form-title {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+
+.student-name {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.subjects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+button {
+    flex: 1;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.calculate {
+    background: #2563eb;
+    color: white;
+}
+
+.calculate:hover {
+    background: #1d4ed8;
+}
+
+.reset {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.result {
+    margin-top: 35px;
+    padding-top: 30px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-header h2 {
+    margin: 0;
+}
+
+.print {
+    background: #111827;
+    color: white;
+    padding: 9px 18px;
+    flex: none;
+}
+
+.student-info {
+    background: #f3f4f6;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    background: #f3f4f6;
+}
+
+.grade {
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 15px;
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.summary-box {
+    padding: 18px;
+    background: #f8fafc;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+}
+
+.summary-box h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.summary-box p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.pass {
+    color: #16a34a;
+}
+
+.fail {
+    color: #dc2626;
+}
+
+.grade-scale {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.grade-scale h3 {
+    margin-top: 0;
+}
+
+.grade-scale-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.grade-item {
+    padding: 10px;
+    background: white;
+    border-radius: 7px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+}
+
+.grade-item strong {
+    color: #2563eb;
+}
+
+.footer {
+    text-align: center;
+    color: #6b7280;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .subjects {
+        grid-template-columns: 1fr;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .grade-scale-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .button-group,
+    .print,
+    .form-title,
+    form,
+    .grade-scale,
+    .footer {
+        display: none !important;
+    }
+
+    .result {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+    <h1>Student Grade Calculator</h1>
+    <p>Calculate student marks, percentage and grades</p>
+</div>
+
+<div class="card">
+
+<h2 class="form-title">Enter Student Information</h2>
+
+<form id="gradeForm">
+
+<div class="student-name">
+    <label>Student Name</label>
+    <input type="text" id="name" placeholder="Enter student name" required>
+</div>
+
+<div class="subjects">
+
+<div>
+    <label>English</label>
+    <input type="number" id="english" min="0" max="100"
+           placeholder="Marks out of 100" required>
+</div>
+
+<div>
+    <label>Mathematics</label>
+    <input type="number" id="math" min="0" max="100"
+           placeholder="Marks out of 100" required>
+</div>
+
+<div>
+    <label>Computer</label>
+    <input type="number" id="computer" min="0" max="100"
+           placeholder="Marks out of 100" required>
+</div>
+
+<div>
+    <label>Physics</label>
+    <input type="number" id="physics" min="0" max="100"
+           placeholder="Marks out of 100" required>
+</div>
+
+<div>
+    <label>Pakistan Studies</label>
+    <input type="number" id="pakistan" min="0" max="100"
+           placeholder="Marks out of 100" required>
+</div>
+
+</div>
+
+<div class="button-group">
+
+<button type="submit" class="calculate">
+    Calculate Grade
+</button>
+
+<button type="reset" class="reset">
+    Reset
+</button>
+
+</div>
+
+</form>
+
+<div id="result" class="result" style="display:none;">
+
+<div class="result-header">
+
+<h2>Student Result</h2>
+
+<button onclick="window.print()" class="print">
+    Print Result
+</button>
+
+</div>
+
+<div class="student-info">
+<strong>Student Name:</strong>
+<span id="studentName"></span>
+</div>
+
+<table>
+
+<thead>
+<tr>
+<th>Subject</th>
+<th>Marks</th>
+<th>Grade</th>
+</tr>
+</thead>
+
+<tbody id="resultTable"></tbody>
+
+</table>
+
+<div class="summary">
+
+<div class="summary-box">
+<h3>Total Marks</h3>
+<p id="total"></p>
+</div>
+
+<div class="summary-box">
+<h3>Percentage</h3>
+<p id="percentage"></p>
+</div>
+
+<div class="summary-box">
+<h3>Final Grade</h3>
+<p id="finalGrade"></p>
+</div>
+
+</div>
+
+<div class="summary">
+
+<div class="summary-box">
+
+<h3>Result Status</h3>
+
+<p id="status"></p>
+
+</div>
+
+</div>
+
+<div class="grade-scale">
+
+<h3>Grade Scale</h3>
+
+<div class="grade-scale-grid">
+
+<div class="grade-item"><strong>A+</strong><br>80% - 100%</div>
+<div class="grade-item"><strong>A</strong><br>70% - 79%</div>
+<div class="grade-item"><strong>B</strong><br>60% - 69%</div>
+<div class="grade-item"><strong>C</strong><br>50% - 59%</div>
+<div class="grade-item"><strong>D</strong><br>40% - 49%</div>
+<div class="grade-item"><strong>F</strong><br>Below 40%</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+Student Grade Calculator | GitHub Pages
+</div>
+
+</div>
+
+<script>
+
+function getGrade(marks) {
+
+    if (marks >= 80) return "A+";
+    if (marks >= 70) return "A";
+    if (marks >= 60) return "B";
+    if (marks >= 50) return "C";
+    if (marks >= 40) return "D";
+
+    return "F";
+}
+
+document.getElementById("gradeForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+
+    const subjects = [
+        ["English", Number(document.getElementById("english").value)],
+        ["Mathematics", Number(document.getElementById("math").value)],
+        ["Computer", Number(document.getElementById("computer").value)],
+        ["Physics", Number(document.getElementById("physics").value)],
+        ["Pakistan Studies", Number(document.getElementById("pakistan").value)]
+    ];
+
+    const total = subjects.reduce((sum, subject) => sum + subject[1], 0);
+
+    const percentage = total / 5;
+
+    const finalGrade = getGrade(percentage);
+
+    const status = percentage >= 40 ? "Pass" : "Fail";
+
+    document.getElementById("studentName").textContent = name;
+
+    document.getElementById("total").textContent = total + " / 500";
+
+    document.getElementById("percentage").textContent =
+        percentage.toFixed(2) + "%";
+
+    document.getElementById("finalGrade").textContent = finalGrade;
+
+    const statusElement = document.getElementById("status");
+
+    statusElement.textContent = status;
+
+    statusElement.className = status === "Pass" ? "pass" : "fail";
+
+    const table = document.getElementById("resultTable");
+
+    table.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${subject[0]}</td>
+            <td>${subject[1]} / 100</td>
+            <td>
+                <span class="grade">
+                    ${getGrade(subject[1])}
+                </span>
+            </td>
+        `;
+
+        table.appendChild(row);
+
+    });
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth"
+    });
+
+});
+
+document.getElementById("gradeForm").addEventListener("reset", function() {
+
+    document.getElementById("result").style.display = "none";
+
+});
+
+</script>
+
+</body>
+</html>
