@@ -7,6 +7,7 @@
 <title>Student Grade Calculator</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -23,6 +24,8 @@ body {
     max-width: 900px;
     margin: auto;
 }
+
+/* HEADER */
 
 .header {
     background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -43,6 +46,8 @@ body {
     font-size: 15px;
 }
 
+/* CARD */
+
 .card {
     background: white;
     padding: 30px;
@@ -55,6 +60,8 @@ body {
     margin-bottom: 25px;
     font-size: 22px;
 }
+
+/* FORM */
 
 .student-name {
     margin-bottom: 25px;
@@ -86,6 +93,8 @@ input:focus {
     gap: 18px;
 }
 
+/* BUTTONS */
+
 .button-group {
     display: flex;
     gap: 12px;
@@ -116,10 +125,30 @@ button {
     color: #374151;
 }
 
+.reset:hover {
+    background: #d1d5db;
+}
+
+/* RESULT */
+
 .result {
     margin-top: 35px;
-    padding-top: 30px;
+    padding: 30px;
     border-top: 2px solid #e5e7eb;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+/* OVERALL RESULT COLORS */
+
+.result-pass {
+    border: 3px solid #22c55e;
+    background: #f0fdf4;
+}
+
+.result-fail {
+    border: 3px solid #ef4444;
+    background: #fef2f2;
 }
 
 .result-header {
@@ -132,12 +161,16 @@ button {
     margin: 0;
 }
 
+/* PRINT */
+
 .print {
     background: #111827;
     color: white;
     padding: 9px 18px;
     flex: none;
 }
+
+/* STUDENT INFO */
 
 .student-info {
     background: #f3f4f6;
@@ -146,13 +179,16 @@ button {
     border-radius: 8px;
 }
 
+/* TABLE */
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
 }
 
-th, td {
+th,
+td {
     padding: 13px;
     text-align: left;
     border-bottom: 1px solid #e5e7eb;
@@ -162,13 +198,25 @@ th {
     background: #f3f4f6;
 }
 
+/* GRADE BADGES */
+
 .grade {
     font-weight: bold;
     padding: 5px 12px;
     border-radius: 15px;
-    background: #dbeafe;
-    color: #1d4ed8;
 }
+
+.grade-pass {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.grade-fail {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* SUMMARY */
 
 .summary {
     display: grid;
@@ -179,7 +227,7 @@ th {
 
 .summary-box {
     padding: 18px;
-    background: #f8fafc;
+    background: white;
     border-radius: 10px;
     text-align: center;
     border: 1px solid #e5e7eb;
@@ -197,13 +245,17 @@ th {
     font-weight: bold;
 }
 
-.pass {
-    color: #16a34a;
+/* STATUS */
+
+.status-pass {
+    color: #15803d;
 }
 
-.fail {
+.status-fail {
     color: #dc2626;
 }
+
+/* GRADE SCALE */
 
 .grade-scale {
     margin-top: 30px;
@@ -235,6 +287,8 @@ th {
     color: #2563eb;
 }
 
+/* FOOTER */
+
 .footer {
     text-align: center;
     color: #6b7280;
@@ -242,9 +296,24 @@ th {
     font-size: 13px;
 }
 
+/* MOBILE */
+
 @media (max-width: 600px) {
+
     body {
         padding: 10px;
+    }
+
+    .header {
+        padding: 25px 15px;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 20px;
     }
 
     .subjects {
@@ -268,9 +337,22 @@ th {
     .grade-scale-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    table {
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        padding: 10px 7px;
+    }
+
 }
 
+/* PRINT */
+
 @media print {
+
     body {
         background: white;
         padding: 0;
@@ -287,136 +369,268 @@ th {
 
     .result {
         margin-top: 0;
-        padding-top: 0;
-        border-top: none;
     }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
+<!-- HEADER -->
+
 <div class="header">
-    <h1>Student Grade Calculator</h1>
-    <p>Calculate student marks, percentage and grades</p>
+
+<h1>
+Student Grade Calculator
+</h1>
+
+<p>
+Calculate student marks, percentage and grades
+</p>
+
 </div>
+
+<!-- CARD -->
 
 <div class="card">
 
-<h2 class="form-title">Enter Student Information</h2>
+<h2 class="form-title">
+Enter Student Information
+</h2>
 
 <form id="gradeForm">
 
+<!-- NAME -->
+
 <div class="student-name">
-    <label>Student Name</label>
-    <input type="text" id="name" placeholder="Enter student name" required>
+
+<label>
+Student Name
+</label>
+
+<input
+type="text"
+id="name"
+placeholder="Enter student name"
+required
+>
+
 </div>
+
+<!-- SUBJECTS -->
 
 <div class="subjects">
 
 <div>
-    <label>English</label>
-    <input type="number" id="english" min="0" max="100"
-           placeholder="Marks out of 100" required>
+
+<label>English</label>
+
+<input
+type="number"
+id="english"
+min="0"
+max="100"
+placeholder="Marks out of 100"
+required
+>
+
 </div>
 
 <div>
-    <label>Mathematics</label>
-    <input type="number" id="math" min="0" max="100"
-           placeholder="Marks out of 100" required>
+
+<label>Mathematics</label>
+
+<input
+type="number"
+id="math"
+min="0"
+max="100"
+placeholder="Marks out of 100"
+required
+>
+
 </div>
 
 <div>
-    <label>Computer</label>
-    <input type="number" id="computer" min="0" max="100"
-           placeholder="Marks out of 100" required>
+
+<label>Computer</label>
+
+<input
+type="number"
+id="computer"
+min="0"
+max="100"
+placeholder="Marks out of 100"
+required
+>
+
 </div>
 
 <div>
-    <label>Physics</label>
-    <input type="number" id="physics" min="0" max="100"
-           placeholder="Marks out of 100" required>
+
+<label>Physics</label>
+
+<input
+type="number"
+id="physics"
+min="0"
+max="100"
+placeholder="Marks out of 100"
+required
+>
+
 </div>
 
 <div>
-    <label>Pakistan Studies</label>
-    <input type="number" id="pakistan" min="0" max="100"
-           placeholder="Marks out of 100" required>
+
+<label>Pakistan Studies</label>
+
+<input
+type="number"
+id="pakistan"
+min="0"
+max="100"
+placeholder="Marks out of 100"
+required
+>
+
 </div>
 
 </div>
+
+<!-- BUTTONS -->
 
 <div class="button-group">
 
-<button type="submit" class="calculate">
-    Calculate Grade
+<button
+type="submit"
+class="calculate"
+>
+Calculate Grade
 </button>
 
-<button type="reset" class="reset">
-    Reset
+<button
+type="reset"
+class="reset"
+>
+Reset
 </button>
 
 </div>
 
 </form>
 
-<div id="result" class="result" style="display:none;">
+<!-- RESULT -->
+
+<div
+id="result"
+class="result"
+style="display:none;"
+>
 
 <div class="result-header">
 
-<h2>Student Result</h2>
+<h2>
+Student Result
+</h2>
 
-<button onclick="window.print()" class="print">
-    Print Result
+<button
+onclick="window.print()"
+class="print"
+>
+Print Result
 </button>
 
 </div>
 
 <div class="student-info">
-<strong>Student Name:</strong>
+
+<strong>
+Student Name:
+</strong>
+
 <span id="studentName"></span>
+
 </div>
 
 <table>
 
 <thead>
+
 <tr>
-<th>Subject</th>
-<th>Marks</th>
-<th>Grade</th>
+
+<th>
+Subject
+</th>
+
+<th>
+Marks
+</th>
+
+<th>
+Grade
+</th>
+
 </tr>
+
 </thead>
 
-<tbody id="resultTable"></tbody>
+<tbody id="resultTable">
+
+</tbody>
 
 </table>
 
+<!-- SUMMARY -->
+
 <div class="summary">
 
 <div class="summary-box">
-<h3>Total Marks</h3>
+
+<h3>
+Total Marks
+</h3>
+
 <p id="total"></p>
+
 </div>
 
 <div class="summary-box">
-<h3>Percentage</h3>
+
+<h3>
+Percentage
+</h3>
+
 <p id="percentage"></p>
+
 </div>
 
 <div class="summary-box">
-<h3>Final Grade</h3>
+
+<h3>
+Final Grade
+</h3>
+
 <p id="finalGrade"></p>
+
 </div>
 
 </div>
+
+<!-- STATUS -->
 
 <div class="summary">
 
 <div class="summary-box">
 
-<h3>Result Status</h3>
+<h3>
+Result Status
+</h3>
 
 <p id="status"></p>
 
@@ -424,18 +638,73 @@ th {
 
 </div>
 
+<!-- GRADE SCALE -->
+
 <div class="grade-scale">
 
-<h3>Grade Scale</h3>
+<h3>
+Grade Scale
+</h3>
 
 <div class="grade-scale-grid">
 
-<div class="grade-item"><strong>A+</strong><br>80% - 100%</div>
-<div class="grade-item"><strong>A</strong><br>70% - 79%</div>
-<div class="grade-item"><strong>B</strong><br>60% - 69%</div>
-<div class="grade-item"><strong>C</strong><br>50% - 59%</div>
-<div class="grade-item"><strong>D</strong><br>40% - 49%</div>
-<div class="grade-item"><strong>F</strong><br>Below 40%</div>
+<div class="grade-item">
+
+<strong>A+</strong>
+
+<br>
+
+80% - 100%
+
+</div>
+
+<div class="grade-item">
+
+<strong>A</strong>
+
+<br>
+
+70% - 79%
+
+</div>
+
+<div class="grade-item">
+
+<strong>B</strong>
+
+<br>
+
+60% - 69%
+
+</div>
+
+<div class="grade-item">
+
+<strong>C</strong>
+
+<br>
+
+50% - 59%
+
+</div>
+
+<div class="grade-item">
+
+<strong>D</strong>
+
+<br>
+
+40% - 49%
+
+</div>
+
+<div class="grade-item">
+
+<strong>F</strong>
+
+<br>
+
+Below 40%
 
 </div>
 
@@ -444,96 +713,262 @@ th {
 </div>
 
 </div>
+
+</div>
+
+<!-- FOOTER -->
 
 <div class="footer">
+
 Student Grade Calculator | GitHub Pages
+
 </div>
 
 </div>
 
 <script>
 
+/* GRADE FUNCTION */
+
 function getGrade(marks) {
 
     if (marks >= 80) return "A+";
+
     if (marks >= 70) return "A";
+
     if (marks >= 60) return "B";
+
     if (marks >= 50) return "C";
+
     if (marks >= 40) return "D";
 
     return "F";
 }
 
-document.getElementById("gradeForm").addEventListener("submit", function(e) {
+
+/* CALCULATE */
+
+document
+.getElementById("gradeForm")
+.addEventListener("submit", function(e) {
 
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
+    const name =
+        document.getElementById("name").value;
 
     const subjects = [
-        ["English", Number(document.getElementById("english").value)],
-        ["Mathematics", Number(document.getElementById("math").value)],
-        ["Computer", Number(document.getElementById("computer").value)],
-        ["Physics", Number(document.getElementById("physics").value)],
-        ["Pakistan Studies", Number(document.getElementById("pakistan").value)]
+
+        [
+            "English",
+            Number(document.getElementById("english").value)
+        ],
+
+        [
+            "Mathematics",
+            Number(document.getElementById("math").value)
+        ],
+
+        [
+            "Computer",
+            Number(document.getElementById("computer").value)
+        ],
+
+        [
+            "Physics",
+            Number(document.getElementById("physics").value)
+        ],
+
+        [
+            "Pakistan Studies",
+            Number(document.getElementById("pakistan").value)
+        ]
+
     ];
 
-    const total = subjects.reduce((sum, subject) => sum + subject[1], 0);
 
-    const percentage = total / 5;
+    /* TOTAL */
 
-    const finalGrade = getGrade(percentage);
+    const total =
+        subjects.reduce(
+            (sum, subject) =>
+            sum + subject[1],
+            0
+        );
 
-    const status = percentage >= 40 ? "Pass" : "Fail";
 
-    document.getElementById("studentName").textContent = name;
+    /* PERCENTAGE */
 
-    document.getElementById("total").textContent = total + " / 500";
+    const percentage =
+        total / 5;
 
-    document.getElementById("percentage").textContent =
+
+    /* FINAL GRADE */
+
+    const finalGrade =
+        getGrade(percentage);
+
+
+    /* OVERALL STATUS */
+
+    const status =
+        percentage >= 40
+        ? "Pass"
+        : "Fail";
+
+
+    /* STUDENT NAME */
+
+    document
+    .getElementById("studentName")
+    .textContent = name;
+
+
+    /* TOTAL */
+
+    document
+    .getElementById("total")
+    .textContent =
+        total + " / 500";
+
+
+    /* PERCENTAGE */
+
+    document
+    .getElementById("percentage")
+    .textContent =
         percentage.toFixed(2) + "%";
 
-    document.getElementById("finalGrade").textContent = finalGrade;
 
-    const statusElement = document.getElementById("status");
+    /* FINAL GRADE */
 
-    statusElement.textContent = status;
+    document
+    .getElementById("finalGrade")
+    .textContent =
+        finalGrade;
 
-    statusElement.className = status === "Pass" ? "pass" : "fail";
 
-    const table = document.getElementById("resultTable");
+    /* STATUS */
+
+    const statusElement =
+        document.getElementById("status");
+
+    statusElement.textContent =
+        status;
+
+    statusElement.className =
+        status === "Pass"
+        ? "status-pass"
+        : "status-fail";
+
+
+    /* RESULT COLOR */
+
+    const resultBox =
+        document.getElementById("result");
+
+    resultBox.classList.remove(
+        "result-pass",
+        "result-fail"
+    );
+
+    if (status === "Pass") {
+
+        resultBox.classList.add(
+            "result-pass"
+        );
+
+    } else {
+
+        resultBox.classList.add(
+            "result-fail"
+        );
+
+    }
+
+
+    /* TABLE */
+
+    const table =
+        document.getElementById("resultTable");
 
     table.innerHTML = "";
 
+
     subjects.forEach(subject => {
 
-        const row = document.createElement("tr");
+        const grade =
+            getGrade(subject[1]);
+
+        const gradeClass =
+            grade === "F"
+            ? "grade-fail"
+            : "grade-pass";
+
+
+        const row =
+            document.createElement("tr");
+
 
         row.innerHTML = `
-            <td>${subject[0]}</td>
-            <td>${subject[1]} / 100</td>
+
             <td>
-                <span class="grade">
-                    ${getGrade(subject[1])}
-                </span>
+                ${subject[0]}
             </td>
+
+            <td>
+                ${subject[1]} / 100
+            </td>
+
+            <td>
+
+                <span class="grade ${gradeClass}">
+
+                    ${grade}
+
+                </span>
+
+            </td>
+
         `;
+
 
         table.appendChild(row);
 
     });
 
-    document.getElementById("result").style.display = "block";
 
-    document.getElementById("result").scrollIntoView({
+    /* SHOW RESULT */
+
+    resultBox.style.display =
+        "block";
+
+
+    /* SCROLL */
+
+    resultBox.scrollIntoView({
         behavior: "smooth"
     });
 
 });
 
-document.getElementById("gradeForm").addEventListener("reset", function() {
 
-    document.getElementById("result").style.display = "none";
+/* RESET */
+
+document
+.getElementById("gradeForm")
+.addEventListener("reset", function() {
+
+    const resultBox =
+        document.getElementById("result");
+
+    resultBox.style.display =
+        "none";
+
+    resultBox.classList.remove(
+        "result-pass",
+        "result-fail"
+    );
 
 });
 
